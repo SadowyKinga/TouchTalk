@@ -35,7 +35,7 @@ public class Message implements Serializable {
     private Set<User> receivers;
     
     @ManyToMany(mappedBy = "message")
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> groups;
 
     public Message(@NotNull String content, @Nullable String file, User sender) {
         this.content = content;

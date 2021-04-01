@@ -54,14 +54,14 @@ public class Group implements Serializable {
         this.id = id;
     }
 
-    public void getName(){
+    public String getName(){
         return name;
     }
     public void setName(String name){
         this.name=name;
     }
     
-    public void getCode(){
+    public String getCode(){
         return code;
     }
     public void setCode(String code){
