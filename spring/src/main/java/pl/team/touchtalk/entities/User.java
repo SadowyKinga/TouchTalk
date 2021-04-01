@@ -55,6 +55,10 @@ public class User implements Serializable {
     )
     private Set<Message> messagesReceived;
 
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Group> groups = new HashSet<>();
+
     public User(@NotEmpty String email, @NotEmpty String password, UserDetails userDetails) {
         this.email = email;
         this.password = password;
