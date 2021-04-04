@@ -27,6 +27,9 @@ public class User implements Serializable {
     @Transient
     private String confirmedPassword;
 
+    @NotEmpty
+    private String salt;
+
     @NotNull
     private Boolean logged;
 
@@ -57,7 +60,7 @@ public class User implements Serializable {
 
 
     @ManyToMany(mappedBy = "users")
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> groups;
 
     public User(@NotEmpty String email, @NotEmpty String password, UserDetails userDetails) {
         this.email = email;
@@ -66,6 +69,28 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    @PrePersist
+    public void setUser() {
+        this.createdAt = new Date(System.currentTimeMillis());
+        this.logged = false;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     public Set<Message> getMessagesReceived() {
@@ -91,12 +116,6 @@ public class User implements Serializable {
     public Date getCreatedAt() {
         return createdAt;
     }
-
-    @PrePersist
-    public void setCreatedAt() {
-        this.createdAt = new Date(System.currentTimeMillis());
-    }
-
 
     public Set<Log> getLogs() {
         return logs;
