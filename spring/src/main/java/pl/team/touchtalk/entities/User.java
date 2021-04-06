@@ -10,6 +10,13 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * User POJO
+ *
+ * @Author Jakub Stawowy
+ * @Version 1.0
+ * @Since 2021-04-06
+ * */
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -62,6 +69,13 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "users")
     private Set<Group> groups;
 
+    /*
+    * constructor
+    *
+    * @Param email
+    * @Param password
+    * @Param userDetails
+    * */
     public User(@NotEmpty String email, @NotEmpty String password, UserDetails userDetails) {
         this.email = email;
         this.password = password;
