@@ -1,0 +1,84 @@
+html, body {
+    height: 100%;
+}
+
+body{
+    background: rgb(48,129,238);
+    background: linear-gradient( rgba(48,129,238,1) 0%, rgba(28,162,240,1) 32%, rgba(32,108,174,1) 40%, rgba(24,74,143,1) 50%, rgba(16,59,132,1) 70%);
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    font-weight: bold;
+    
+}
+
+
+.logo{
+    height: 50%;
+    width: 50%;
+}
+
+section{
+    display: flex;
+    flex-direction: row;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+input{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 3em;
+    align-items: center;
+    border-color: #707070;
+    border-radius: 8px;
+    outline: 0;
+    padding: 1em;
+}
+
+label{
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    margin: 1em;
+
+}
+
+button{
+    width: 20%;
+    height: 3em;
+    background-color: #FFFFFF;
+    opacity: 18%;
+    color: black;
+    border-radius: 10px;
+    border-bottom: solid #707070; 
+    margin-left: auto;
+    outline: 0;
+}
+
+aside{
+    display: flex;
+    flex-direction: column;
+    float: right;
+}
+
+.form-error{
+    font-size: 15px;
+}
+
+.register-button{
+    width: 80%;
+    background-color: #FFFFFF;
+    opacity: 55%;
+    color: #664F4F;
+    margin-left: auto;
+    margin-right: auto;
+    
+}

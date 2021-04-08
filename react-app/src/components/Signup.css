@@ -1,0 +1,24 @@
+h1{
+    font-size: 55px;
+
+}
+
+h2{
+    font-size: 30;
+
+}
+
+.name-surname{
+    display: flex;
+    flex-direction: row;
+}
+
+.name-surname>label{
+    display: flex;
+    flex-direction: row;
+}
+
+input{
+    height: 100%;
+    width: 100%;
+}

@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
+import logo from './logo.svg'
+import "./Signup.css"
 import { SignupSchema } from "../validation/formValidation.js";
 
 const Signup = () => {
@@ -25,21 +27,26 @@ const Signup = () => {
   });
   return (
     <section>
+      <img src={logo} className="logo"/>
+      <div>
       <h1>Załóż konto w TouchTalk</h1>
       <h3>Aby założyć konto, wypełnij poniższe pola</h3>
       <p>Twoje dane</p>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor='firstname'>Imię</label>
-        <input
-          id='firstname'
-          name='firstname'
-          type='text'
-          onChange={formik.handleChange}
-          value={formik.values.firstname}
-        />
+        <div className='name-surname'>
+          <label htmlFor='firstname'>Imię</label>
+          <input
+            id='firstname'
+            name='firstname'
+            type='text'
+            onChange={formik.handleChange}
+            value={formik.values.firstname}
+          />
+        
         {formik.touched.firstname && formik.errors.firstname ? (
           <div className='form-error'>{formik.errors.firstname}</div>
         ) : null}
+        
         <label htmlFor='lastname'>Nazwisko</label>
         <input
           id='lastname'
@@ -51,6 +58,7 @@ const Signup = () => {
         {formik.touched.lastname && formik.errors.lastname ? (
           <div className='form-error'>{formik.errors.lastname}</div>
         ) : null}
+        </div>
         <p>Dane konta</p>
         <label htmlFor='email'>Email</label>
         <input
@@ -81,6 +89,7 @@ const Signup = () => {
         <p>Masz już konto TouchTalk?</p>
         <button onClick={togglePanel}>Zaloguj się</button>
       </aside>
+      </div>
     </section>
   );
 };

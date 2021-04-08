@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
+import "./Signin.css"
+import logo from './logo.svg'
 import { SigninSchema } from "../validation/formValidation.js";
 
 const Signin = () => {
@@ -23,7 +25,9 @@ const Signin = () => {
   });
   return (
     <section>
+      
       <form onSubmit={formik.handleSubmit}>
+        <img src={logo} className="logo"/>
         <label htmlFor='email'>Email</label>
         <input
           id='email'
@@ -51,7 +55,7 @@ const Signin = () => {
       </form>
       <aside>
         <p>Nie masz jeszcze konta TouchTalk?</p>
-        <button onClick={togglePanel}>Utwórz nowe konto</button>
+        <button className='register-button' onClick={togglePanel}>Utwórz nowe konto</button>
       </aside>
     </section>
   );
