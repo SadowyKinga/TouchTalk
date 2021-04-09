@@ -12,30 +12,31 @@ body{
     
 }
 
-
 .logo{
-    height: 50%;
-    width: 50%;
+    height: 50vh;
+    width: 50vw;
 }
 
-section{
+.container{
     display: flex;
     flex-direction: row;
+    margin-right: 1em;
+    margin-left: 1em;
 }
 
 form{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 50vw;
 }
 
 input{
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
-    height: 3em;
+    width: 80vw;
+    height: 7vh;
     align-items: center;
-    border-color: #707070;
+    border: 1px solid #707070; 
     border-radius: 8px;
     outline: 0;
     padding: 1em;
@@ -48,25 +49,22 @@ label{
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     margin: 1em;
-
 }
 
 button{
-    width: 20%;
-    height: 3em;
-    background-color: #FFFFFF;
-    opacity: 18%;
-    color: black;
     border-radius: 10px;
-    border-bottom: solid #707070; 
+    border: 1px solid #707070; 
     margin-left: auto;
     outline: 0;
 }
 
 aside{
-    display: flex;
-    flex-direction: column;
-    float: right;
+    width: 50vw;
+    align-items: center;
+    margin-top: 50vh;
+    margin-left: 10vw;
+    border-left: 1px solid #FDF8F8;
+    padding-left: 5em;
 }
 
 .form-error{
@@ -74,11 +72,81 @@ aside{
 }
 
 .register-button{
-    width: 80%;
-    background-color: #FFFFFF;
-    opacity: 55%;
+    background: rgba( 255, 255, 255, 55%);
     color: #664F4F;
+    border: 1px solid #707070; 
     margin-left: auto;
     margin-right: auto;
-    
+    width: 20vw;
+    height: 7vh;
+}
+
+.login-button{
+    background: rgba( 255, 255, 255, 18%);
+    color: white;
+    border-radius: 5px;
+    width: 10vw;
+    height: 7vh;
+    margin: 1em;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+p{
+    color: #F2F3F3;
+}
+
+label{
+    margin-left: inherit;
+}
+
+.form-error{
+    color: white;
+    opacity: 70%;
+}
+
+@media only screen and (max-device-width: 420px)
+{
+    form{
+        width: auto;
+        border-bottom: 1px solid #F0EFEF; 
+    }
+    .logo{
+        width: 90vw;
+        height: 40vh;
+    }
+
+    .login-button{
+        background: rgba( 255, 255, 255, 0%);
+        width: 25vw;
+        border-radius: 0px;
+        border: 0;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    input{
+        width: 90vw;
+    }
+
+    aside{
+        width: auto;
+        align-items: center;
+        margin-top: 0;
+        margin-left: 0;
+        border-left: 0;
+        padding-left: 0;
+    }
+
+    .register-button{
+        width: 90vw;
+    }
+
+    p{
+        text-align: center;
+        padding: 1em;
+    }
 }

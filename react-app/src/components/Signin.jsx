@@ -24,8 +24,9 @@ const Signin = () => {
     },
   });
   return (
+    
     <section>
-      
+      <div className='container'>
       <form onSubmit={formik.handleSubmit}>
         <img src={logo} className="logo"/>
         <label htmlFor='email'>Email</label>
@@ -51,13 +52,15 @@ const Signin = () => {
         {formik.touched.password && formik.errors.password ? (
           <div className='form-error'>{formik.errors.password}</div>
         ) : null}
-        <button type='submit'>Zaloguj</button>
+        <button className='login-button' type='submit'>Zaloguj</button>
       </form>
       <aside>
         <p>Nie masz jeszcze konta TouchTalk?</p>
         <button className='register-button' onClick={togglePanel}>Utwórz nowe konto</button>
       </aside>
+      </div>
     </section>
+    
   );
 };
 
