@@ -2,8 +2,10 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { SigninSchema } from "../validation/formValidation.js";
-
+import { useDispatch } from "react-redux";
+import { signin } from "../actions/auth.js";
 const Signin = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const togglePanel = () => {
     history.push("/signup");
@@ -16,8 +18,11 @@ const Signin = () => {
     },
     validationSchema: SigninSchema,
     onSubmit: (values, { resetForm }) => {
-      const form = JSON.stringify(values);
-      alert(form);
+      const form = {
+        email: values.email,
+        password: values.password,
+      };
+      dispatch(signin(form));
       resetForm();
     },
   });
