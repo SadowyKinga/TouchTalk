@@ -29,6 +29,7 @@ const Signin = () => {
       <div className='container'>
       <form onSubmit={formik.handleSubmit}>
         <img src={logo} className="logo"/>
+        <div className='input-container'>
         <label htmlFor='email'>Email</label>
         <input
           id='email'
@@ -52,11 +53,12 @@ const Signin = () => {
         {formik.touched.password && formik.errors.password ? (
           <div className='form-error'>{formik.errors.password}</div>
         ) : null}
-        <button className='login-button' type='submit'>Zaloguj</button>
+        <button className='login-button-signin' type='submit'>Zaloguj</button>
+        </div>
       </form>
       <aside>
         <p>Nie masz jeszcze konta TouchTalk?</p>
-        <button className='register-button' onClick={togglePanel}>Utwórz nowe konto</button>
+        <button className='register-button-signin' onClick={togglePanel}>Utwórz nowe konto</button>
       </aside>
       </div>
     </section>
