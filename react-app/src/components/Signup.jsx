@@ -57,8 +57,8 @@ const Signup = () => {
           <div className='name'>
           <label htmlFor='firstname'>Imię</label>
           <input
-            id='firstname'
-            name='firstname'
+            id='name'
+            name='name'
             type='text'
             onChange={formik.handleChange}
             value={formik.values.name}

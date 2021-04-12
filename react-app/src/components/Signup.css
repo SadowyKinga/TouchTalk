@@ -55,12 +55,12 @@ label{
     margin: 0;
 }
 
-#firstname{
+#name{
     height: 2em;
     width: 22vw;
 }
 
-#lastname{
+#surname{
    height: 2em;
    width: 22vw;
 }
@@ -149,12 +149,12 @@ form{
         height: 35wh;
     }
 
-    #firstname{
+    #name{
         width: 35vw;
         height: 1em;
     }
 
-    #lastname{
+    #surname{
         width: 35vw;
         height: 1em;
     }
