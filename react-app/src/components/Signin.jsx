@@ -4,12 +4,18 @@ import { useFormik } from "formik";
 import "./Signin.css"
 import logo from './logo.svg'
 import { SigninSchema } from "../validation/formValidation.js";
+import { useDispatch, useSelector} from "react-redux";
+import { signin } from "../actions/auth.js";
 
 const Signin = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const auth = useSelector(state => state.auth)
   const togglePanel = () => {
     history.push("/signup");
   };
+
+  if(auth.login_error) console.log("server error")
 
   const formik = useFormik({
     initialValues: {
@@ -18,8 +24,13 @@ const Signin = () => {
     },
     validationSchema: SigninSchema,
     onSubmit: (values, { resetForm }) => {
-      const form = JSON.stringify(values);
-      alert(form);
+      const form = {
+        email: values.email,
+        password: values.password,
+      };
+      dispatch(signin(form)).then(() => {
+        history.push("/touchtalk");
+      });
       resetForm();
     },
   });

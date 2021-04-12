@@ -4,24 +4,38 @@ import { useFormik } from "formik";
 import logo from './logo.svg'
 import "./Signup.css"
 import { SignupSchema } from "../validation/formValidation.js";
+import { useDispatch, useSelector} from "react-redux";
+import { signup } from "../actions/auth.js";
 
 const Signup = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
   const togglePanel = () => {
     history.push("/");
   };
 
+  if(auth.register_error) console.log("server error")
+
   const formik = useFormik({
     initialValues: {
-      firstname: "",
-      lastname: "",
+      name: "",
+      surname: "",
       email: "",
       password: "",
     },
     validationSchema: SignupSchema,
     onSubmit: (values, { resetForm }) => {
-      const form = JSON.stringify(values);
-      alert(form);
+      const form = {
+        email: values.email,
+        password: values.password,
+        userDetails:{
+          name: values.name, 
+          surname: values.surname
+        }
+      };
+      console.log(form)
+      dispatch(signup(form));
       resetForm();
     },
   });
@@ -47,23 +61,23 @@ const Signup = () => {
             name='firstname'
             type='text'
             onChange={formik.handleChange}
-            value={formik.values.firstname}
+            value={formik.values.name}
           />
-        {formik.touched.firstname && formik.errors.firstname ? (
-          <div className='form-error'>{formik.errors.firstname}</div>
+        {formik.touched.name && formik.errors.name ? (
+          <div className='form-error'>{formik.errors.name}</div>
         ) : null}
         </div>
         <div className='surname'>
         <label htmlFor='lastname'>Nazwisko</label>
         <input
-          id='lastname'
-          name='lastname'
+          id='surname'
+          name='surname'
           type='text'
           onChange={formik.handleChange}
-          value={formik.values.lastname}
+          value={formik.values.surname}
         />
-        {formik.touched.lastname && formik.errors.lastname ? (
-          <div className='form-error'>{formik.errors.lastname}</div>
+        {formik.touched.surname && formik.errors.surname ? (
+          <div className='form-error'>{formik.errors.surname}</div>
         ) : null}
         </div>
         </div>
