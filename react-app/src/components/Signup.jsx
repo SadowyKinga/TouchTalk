@@ -2,12 +2,18 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignupSchema } from "../validation/formValidation.js";
+import { useDispatch, useSelector} from "react-redux";
+import { signup } from "../actions/auth.js";
 
 const Signup = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
   const togglePanel = () => {
     history.push("/");
   };
+
+  if(auth.register_error) console.log("server error")
 
   const formik = useFormik({
     initialValues: {
@@ -27,6 +33,7 @@ const Signup = () => {
         }
       };
       console.log(form)
+      dispatch(signup(form));
       resetForm();
     },
   });
