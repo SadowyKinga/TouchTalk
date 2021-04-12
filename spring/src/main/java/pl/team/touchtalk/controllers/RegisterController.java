@@ -1,11 +1,15 @@
 package pl.team.touchtalk.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 import pl.team.touchtalk.entities.User;
 import pl.team.touchtalk.repositories.UserRepository;
+import pl.team.touchtalk.responses.RegisterResponseEntity;
+
+import java.sql.SQLException;
 
 /*
 * RegisterController
@@ -51,11 +55,17 @@ public class RegisterController {
      * @Returns user
     * */
     @PostMapping(value = "/register", consumes = "application/json")
-    public User registerUser(@RequestBody User user) {
+    public RegisterResponseEntity registerUser(@RequestBody User user) {
+
+        if(userRepository.getUserByEmail(user.getEmail()).isPresent())
+            return new RegisterResponseEntity(null, HttpStatus.CONFLICT);
+
         String salt = BCrypt.gensalt();
         String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
         user.setPassword(hashedPassword);
         user.setSalt(salt);
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        return new RegisterResponseEntity(user.getEmail(), HttpStatus.OK);
     }
 }

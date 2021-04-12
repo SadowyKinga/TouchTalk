@@ -1,15 +1,16 @@
 package pl.team.touchtalk.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
-import pl.team.touchtalk.entities.Log;
 import pl.team.touchtalk.entities.User;
+import pl.team.touchtalk.responses.LoginResponseEntity;
 import pl.team.touchtalk.services.JsonWebTokenProvider;
 import pl.team.touchtalk.services.UserService;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 /*
@@ -43,55 +44,50 @@ public class LoginController {
     * @Param session HttpSession is used to get sessionId
     * @RequestParam email
     * @RequestParam password
-    * @Returns token?null If there's no user with this email and password, it returns null
+    * @Returns loginResponseEntity (if no user found, method returns null values with 404 HttpStatus)
     * */
     @PostMapping(value = "/login")
-    @Nullable
-    public String loginUser(HttpSession session, @RequestParam("email") String email, @RequestParam("password") String password) {
+    public LoginResponseEntity loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
 
         Optional<String> salt = userService.getUserRepository().getSaltByEmail(email);
         if(salt.isPresent()) {
 
             User loggedUser = userService.getUserRepository().getUserByEmailAndPassword(
                     email,
-                    BCrypt.hashpw(
-                            password,
-                            salt.get()
-                    )
+                    BCrypt.hashpw(password, salt.get())
             );
 
             if(loggedUser==null)
-                return null;
+                return new LoginResponseEntity(null, null, HttpStatus.NOT_FOUND);
 
             loggedUser.setLogged(true);
             userService.getUserRepository().save(loggedUser);
-            userService.getLogRepository().save(new Log(
-                    session.getId(),
-                    loggedUser
-            ));
 
-            return webTokenProvider.generateToken(loggedUser);
+            return new LoginResponseEntity(
+                    webTokenProvider.generateToken(loggedUser),
+                    loggedUser.getUserDetails().getName()+" "+loggedUser.getUserDetails().getSurname(),
+                    HttpStatus.OK
+            );
         }
-        return null;
+        return new LoginResponseEntity(null, null, HttpStatus.NOT_FOUND);
     }
 
     /*
     * logoutUser method
     *
     * @RequestParam id
-    * @Returns loggedUser?null User with logged property set as false
+    * @Returns responseEntity (method returns HttpStatus 200 code if user is present. Otherwise, it returns HttpStatus 400 code)
     * */
     @PutMapping(value = "/logout")
-    @Nullable
-    public String logoutUser(@RequestParam("userId")Long id) {
+    public ResponseEntity<?> logoutUser(@RequestParam("userId")Long id) {
         Optional<User> loggedUser = userService.getUserRepository().findById(id);
 
         if(loggedUser.isPresent()) {
             loggedUser.get().setLogged(false);
             userService.getUserRepository().save(loggedUser.get());
-            return "User logged out correctly";
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        return "User logout error";
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

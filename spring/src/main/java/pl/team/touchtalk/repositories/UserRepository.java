@@ -19,4 +19,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     * */
     @Query(value = "SELECT u.salt FROM users u WHERE u.email=?1", nativeQuery = true)
     Optional<String> getSaltByEmail(String email);
+
+
+    Optional<User> getUserByEmail(String email);
 }
