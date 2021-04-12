@@ -11,15 +11,22 @@ const Signup = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstname: "",
-      lastname: "",
+      name: "",
+      surname: "",
       email: "",
       password: "",
     },
     validationSchema: SignupSchema,
     onSubmit: (values, { resetForm }) => {
-      const form = JSON.stringify(values);
-      alert(form);
+      const form = {
+        email: values.email,
+        password: values.password,
+        userDetails:{
+          name: values.name, 
+          surname: values.surname
+        }
+      };
+      console.log(form)
       resetForm();
     },
   });
@@ -29,27 +36,27 @@ const Signup = () => {
       <h3>Aby założyć konto, wypełnij poniższe pola</h3>
       <p>Twoje dane</p>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor='firstname'>Imię</label>
+        <label htmlFor='name'>Imię</label>
         <input
-          id='firstname'
-          name='firstname'
+          id='name'
+          name='name'
           type='text'
           onChange={formik.handleChange}
-          value={formik.values.firstname}
+          value={formik.values.name}
         />
-        {formik.touched.firstname && formik.errors.firstname ? (
-          <div className='form-error'>{formik.errors.firstname}</div>
+        {formik.touched.name && formik.errors.name ? (
+          <div className='form-error'>{formik.errors.name}</div>
         ) : null}
-        <label htmlFor='lastname'>Nazwisko</label>
+        <label htmlFor='surname'>Nazwisko</label>
         <input
-          id='lastname'
-          name='lastname'
+          id='surname'
+          name='surname'
           type='text'
           onChange={formik.handleChange}
-          value={formik.values.lastname}
+          value={formik.values.surname}
         />
-        {formik.touched.lastname && formik.errors.lastname ? (
-          <div className='form-error'>{formik.errors.lastname}</div>
+        {formik.touched.surname && formik.errors.surname ? (
+          <div className='form-error'>{formik.errors.surname}</div>
         ) : null}
         <p>Dane konta</p>
         <label htmlFor='email'>Email</label>
