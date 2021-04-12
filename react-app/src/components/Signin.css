@@ -118,8 +118,7 @@ label{
     font-size: 15px;
 }
 
-@media only screen and (max-device-width: 420px)
-{
+@media only screen and (max-device-width: 420px) {
     form{
         width: 90%;
         border-bottom: 1px solid #F0EFEF; 
